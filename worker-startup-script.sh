@@ -1,25 +1,25 @@
 #!/bin/bash
 
-sudo apt-get -y update
+#sudo apt-get -y update
 
-sudo apt-get -y upgrade
+#sudo apt-get -y upgrade
 
-sudo apt-get -y install python3-pip
+#sudo apt-get -y install python3-pip
 
-sudo apt-get -y install git
+#sudo apt-get -y install git
 
-python3 -m venv venv
+#python3 -m venv venv
 
-pip3 install rpyc
+#pip3 install rpyc
 
 
-mkdir scripts/
+#mkdir scripts/
 
-cd scripts/
+#cd scripts/
 
-git clone "https://github.com/vbushan/ECC_MAP_REDUCE.git"
+#git clone "https://github.com/vbushan/ECC_MAP_REDUCE.git"
 
-cd ECC_MAP_REDUCE
+#cd ECC_MAP_REDUCE
 
 python3 worker.py
 

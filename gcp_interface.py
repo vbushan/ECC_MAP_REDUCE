@@ -3,15 +3,20 @@ import os
 import time
 
 
-def list_instances(compute, project, zone):
+def list_instances(project, zone):
+    compute = googleapiclient.discovery.build('compute', 'v1')
+
     result = compute.instances().list(project=project, zone=zone).execute()
     return result['items'] if 'items' in result else None
 
 
-def create_instance(compute, project, zone, name, startup_script):
+def create_instance(project, zone, name, startup_script):
     # Get the latest Debian Jessie image.
+    compute = googleapiclient.discovery.build('compute', 'v1')
+
     image_response = compute.images().getFromFamily(
         project='debian-cloud', family='debian-9').execute()
+
     source_disk_image = image_response['selfLink']
 
     # Configure the machine
@@ -69,7 +74,9 @@ def create_instance(compute, project, zone, name, startup_script):
         body=config).execute()
 
 
-def wait_for_operation(compute, project, zone, operation):
+def wait_for_operation(project, zone, operation):
+    compute = googleapiclient.discovery.build('compute', 'v1')
+
     print('Waiting for operation to finish...')
     while True:
         result = compute.zoneOperations().get(
@@ -86,14 +93,18 @@ def wait_for_operation(compute, project, zone, operation):
         time.sleep(1)
 
 
-def delete_instance(compute, project, zone, name):
+def delete_instance(project, zone, name):
+    compute = googleapiclient.discovery.build('compute', 'v1')
+
     return compute.instances().delete(
         project=project,
         zone=zone,
         instance=name).execute()
 
 
-def get_ip(compute, project, zone, name):
+def get_ip(project, zone, name):
+    compute = googleapiclient.discovery.build('compute', 'v1')
+
     instance = compute.instances().get(
         project=project, zone=zone, instance=name).execute()
 

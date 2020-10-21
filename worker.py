@@ -1,36 +1,25 @@
-
-
 import rpyc
+from rpyc.utils.server import ThreadedServer
+import socket
 
 
-rpyc.core.protocol.DEFAULT_CONFIG['sync_request_timeout'] = None
+class Worker(rpyc.Service):
+    def __init__(self):
+        pass
+
+    def on_connect(self, conn):
+        pass
+
+    def on_disconnect(self, conn):
+        pass
+
+    def exposed_execute(self, role, func, data, index):
+        pass
 
 
-#SERVER = open(master-ip.txt, 'w').read()
+if __name__ == "__main__":
 
-SERVER = '10.142.0.24'
+    t = ThreadedServer(Master, hostname=socket.gethostbyname(
+        socket.gethostname()), port=8080)
 
-conn = rpyc.connect(SERVER, 8080,
-                    config=rpyc.core.protocol.DEFAULT_CONFIG)
-server = conn.root
-
-print('Response from Master', server.add(1, 2))
-
-
-"""
-SERVER = '127.0.0.1'
-PORT = 8080
-
-rpyc.core.protocol.DEFAULT_CONFIG['sync_request_timeout'] = None
-
-conn = rpyc.connect(SERVER, PORT,
-                    config=rpyc.core.protocol.DEFAULT_CONFIG)
-server = conn.root
-
-
-"""
-"""
-ADDR = (SERVER, PORT)
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(ADDR)
-"""
+    t.start()
