@@ -12,6 +12,17 @@ python3 -m venv venv
 
 pip3 install rpyc
 
+
+mkdir scripts/
+
+cd scripts/
+
+git clone "https://github.com/vbushan/ECC_MAP_REDUCE.git"
+
+cd ECC_MAP_REDUCE
+
+python3 master.py
+
 #source venv/bin/activate
 #cd /mnt/c/Users/Vamsi/Desktop/"gcp api"
 #python master.py

@@ -9,11 +9,11 @@ class Master(rpyc.Service):
     def on_connect(self, conn):
 
         time = datetime.datetime.now()
-        print(f'Client Connected on {time}')
+        print('Client Connected on ', time)
 
     def on_disconnect(self, conn):
         time = datetime.datetime.now()
-        print(f'Client Disconnected on {time}')
+        print('Client Disconnected on', time)
 
     def exposed_add(self, a, b):
         return a+b
