@@ -6,7 +6,7 @@ import socket
 import gcp_interface as cmp_eng
 import traceback
 from multiprocessing import Process
-from worker_trigger import start_worker_instance
+#from worker_trigger import start_worker_instance
 import os
 import concurrent.futures
 import random
