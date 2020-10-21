@@ -101,5 +101,5 @@ if __name__ == "__main__":
     # t = ThreadedServer(Master, hostname=socket.gethostbyname(
     #    socket.gethostname()), port=8080)
 
-    t = ThreadServer(Master, hostname='0.0.0.0', port=8080)
+    t = ThreadedServer(Master, hostname='0.0.0.0', port=8080)
     t.start()
