@@ -8,7 +8,7 @@ def list_instances(compute, project, zone):
     return result['items'] if 'items' in result else None
 
 
-def create_instance(compute, project, zone, name):
+def create_instance(compute, project, zone, name, startup_script):
     # Get the latest Debian Jessie image.
     image_response = compute.images().getFromFamily(
         project='debian-cloud', family='debian-9').execute()
@@ -16,10 +16,6 @@ def create_instance(compute, project, zone, name):
 
     # Configure the machine
     machine_type = "zones/%s/machineTypes/n1-standard-1" % zone
-
-    startup_script = open(
-        os.path.join(
-            os.path.dirname(__file__), 'startup-script.sh'), 'r').read()
 
     config = {
         'name': name,
@@ -100,9 +96,11 @@ def delete_instance(compute, project, zone, name):
 def get_ip(compute, project, zone, name):
     instance = compute.instances().get(
         project=project, zone=zone, instance=name).execute()
-    ext_ip = instance['networkInterfaces'][0]['accessConfigs'][0]['natIP']
 
-    return ext_ip
+    internal_ip = instance['networkInterfaces'][0]['networkIP']
+    #ext_ip = instance['networkInterfaces'][0]['accessConfigs'][0]['natIP']
+
+    return internal_ip
 
 
 """

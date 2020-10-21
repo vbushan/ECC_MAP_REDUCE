@@ -4,14 +4,16 @@ import rpyc
 from pprint import pprint
 
 
+startup_script = open(
+    os.path.join(
+        os.path.dirname(__file__), 'master-startup-script.sh'), 'r').read()
+
 compute = googleapiclient.discovery.build('compute', 'v1')
 project = 'vathepalli-vamsi-bushan-293105'
 zone = 'us-east1-b'
 
 
-create = create_instance(compute, project, zone, 'sample-instance-python')
-print('Instance Creation Operation- \n')
-
+create = create_instance(compute, project, zone, 'sample-master')
 
 print('\n\n')
 
@@ -22,10 +24,15 @@ print('Done Waiting')
 
 print('Created Instace IP')
 
-ext_ip = get_ip(compute, project, zone, 'sample-instance-python')
-print(ext_ip)
+IP = get_ip(compute, project, zone, 'sample-master')
+print('Instance Internal IP Address- ', IP)
+
+with open('master-ip.txt', 'w') as file:
+    file.write(IP)
+
 
 """
+
 rpyc.core.protocol.DEFAULT_CONFIG['sync_request_timeout'] = None
 
 master = rpyc.connect(ext_ip, port=8080,
@@ -42,4 +49,6 @@ print('Waiting for instance to delete')
 status = wait_for_operation(compute, project, zone, delete['name'])
 pprint(status)
 print('Done Waiting')
+
+
 """
