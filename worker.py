@@ -6,7 +6,9 @@ import rpyc
 rpyc.core.protocol.DEFAULT_CONFIG['sync_request_timeout'] = None
 
 
-SERVER = open(master-ip.txt, 'w').read()
+#SERVER = open(master-ip.txt, 'w').read()
+
+SERVER = '10.142.0.24'
 
 conn = rpyc.connect(SERVER, 8080,
                     config=rpyc.core.protocol.DEFAULT_CONFIG)

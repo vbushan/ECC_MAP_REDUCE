@@ -2,7 +2,7 @@ import googleapiclient.discovery
 from test import create_instance, delete_instance, wait_for_operation, list_instances, get_ip
 import rpyc
 from pprint import pprint
-
+import os
 
 startup_script = open(
     os.path.join(
@@ -13,7 +13,8 @@ project = 'vathepalli-vamsi-bushan-293105'
 zone = 'us-east1-b'
 
 
-create = create_instance(compute, project, zone, 'sample-master')
+create = create_instance(compute, project, zone,
+                         'sample-master', startup_script)
 
 print('\n\n')
 
